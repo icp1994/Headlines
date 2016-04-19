@@ -10,22 +10,13 @@ RSS_FEEDS = {'bbc': 'http://feeds.bbci.co.uk/news/rss.xml',
 
 
 @app.route("/")
-@app.route("/bbc")
-def bbc():
-    return get_news('bbc')
-
-
-@app.route("/cnn")
-def cnn():
-    return get_news('cnn')
-
-
-def get_news(publication):
+@app.route("/<publication>")
+def get_news(publication='bbc'):
     feed = feedparser.parse(RSS_FEEDS[publication])
     first_article = feed['entries'][0]
     return """<html>
         <body>
-            <h1> BBC Headlines </h1>
+            <h1> Headlines </h1>
             <b>{}</b> <br/>
             <i>{}</i> <br/>
             <p>{}</p> <br/>
